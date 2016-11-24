@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="myproject.mapper.ClusterMapper">
+    <insert id="create" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO shaka_cluster(name, status, container_size) VALUES (#{name}, #{status}, #{containerSize});
+    </insert>
+
+    <update id="update" parameterType="ClusterConfig">
+        UPDATE shaka_cluster SET name=#{name},status=#{status},container_size=#{containerSize} WHERE id=#{id}
+    </update>
+
+    <update id="updateStatus">
+        UPDATE shaka_cluster SET status=#{status} WHERE id=#{id}
+    </update>
+
+    <delete id="delete">
+        DELETE FROM shaka_cluster WHERE id = #{id};
+    </delete>
+
+    <sql id="select">
+        SELECT id, name, status, container_size as containerSize FROM shaka_cluster
+    </sql>
+
+    <select id="findAll" resultType="ClusterConfig">
+        <include refid="select"/>
+    </select>
+
+    <select id="findById" resultType="ClusterConfig">
+        <include refid="select"/>
+        WHERE id=#{id}
+    </select>
+</mapper>

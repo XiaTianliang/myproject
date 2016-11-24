@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html ng-app="Shaka">
+<head>
+    <!-- Meta, title, CSS, favicons, etc. -->
+    <meta charset="utf-8">
+    <title>Shaka</title>
+    <meta name="keywords" content="HTML5 Bootstrap 3 Admin Template UI Theme"/>
+    <meta name="description" content="AbsoluteAdmin - A Responsive HTML5 Admin UI Framework">
+    <meta name="author" content="AbsoluteAdmin">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!--<meta http-equiv="cache-control" content="max-age=0"/>-->
+    <!--<meta http-equiv="cache-control" content="no-cache"/>-->
+    <!--<meta http-equiv="expires" content="0"/>-->
+    <!--<meta http-equiv="expires" content="Tue, 01 Jan 1980 1:00:00 GMT"/>-->
+    <!--<meta http-equiv="pragma" content="no-cache"/>-->
+
+    <link rel="stylesheet" type="text/css" href="../resources/css/magnific-popup.css">
+    <!-- Theme CSS -->
+    <link rel="stylesheet" type="text/css" href="../resources/css/_glyph.scss">
+    <link rel="stylesheet" type="text/css" href="../resources/css/theme.css">
+    <link rel="stylesheet" href="../resources/css/font-awesome/4.2.0/css/font-awesome.min.css"/>
+    <!-- Admin Forms CSS -->
+    <link rel="stylesheet" type="text/css" href="../resources/css/admin-forms.min.css">
+    <link rel="stylesheet" type="text/css" href="../resources/css/shaka.css">
+
+    <!--<link rel="stylesheet" type="text/css" href="resources/css/graph.editor.css">-->
+    <link rel="stylesheet" type="text/css" href="../resources/css/demo.css">
+
+    <!--sweet alert-->
+    <link rel="stylesheet" type="text/css" href="../resources/css/sweetalert2.min.css">
+
+    <!--angular tree view-->
+    <!--<link rel="stylesheet" type="text/css" href="resources/css/angular.treeview.css">-->
+</head>
+<body class="dashboard-page">
+<!-- Start: Main -->
+<div id="main">
+    <!-- Start: Header -->
+    <header class="navbar navbar-fixed-top navbar-shadow dark bg-dark">
+        <div class="navbar-branding">
+            <img src="../resources/images/shaka_icon.png" style="position: absolute;top: 6px; height: 25px">
+            <a class="navbar-brand pl30" style="font-size: 23px; color:#9fa4b7">
+                <b>Shaka</b>
+            </a>
+        </div>
+
+        <!--<ul ng-if="isMetrics" class="nav navbar-nav navbar-right top-btn" ng-myproject.controller="PeriodController">-->
+            <!--<li>-->
+                <!--<div class="navbar-btn btn-group">-->
+                    <!--<a href="javascript:void(0)" class="btn btn-sm" data-toggle="button" ng-click="refreshPeriod()">-->
+                        <!--<span class="fa fa-refresh"></span>-->
+                    <!--</a>-->
+                <!--</div>-->
+            <!--</li>-->
+            <!--<li class="dropdown menu-merge" style="height: 35px" id="periods">-->
+                <!--<a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" style="height: 35px">-->
+                    <!--<span class="hidden-xs"> {{periodDesc}}</span>-->
+                    <!--<span class="caret caret-tp hidden-xs"></span>-->
+                <!--</a>-->
+                <!--<ul class="dropdown-menu list-group dropdown-persist" role="menu">-->
+                    <!--<li class="list-group-item" ng-repeat="item in periods"-->
+                        <!--ng-class="{true:'active',false:''}[item.period==period]"-->
+                        <!--ng-click="selectPeriod(item)">-->
+                        <!--<a href="javascript:void(0)">-->
+                            <!--{{item.desc}}-->
+                        <!--</a>-->
+                    <!--</li>-->
+                <!--</ul>-->
+            <!--</li>-->
+        <!--</ul>-->
+    </header>
+    <!-- End: Header -->
+    <!-- Start: Sidebar -->
+    <aside id="sidebar_left" class="nano nano-light sidebar-default affix" ng-controller="LeftMenuController">
+        <!-- Start: Sidebar Left Content -->
+        <div class="sidebar-left-content nano-content">
+            <!-- Start: Sidebar Menu -->
+            <ul class="nav sidebar-menu">
+                <li ng-repeat="menu in leftMenu" ng-class="{true:'active',false:''}[path == menu.path]">
+                    <a href="javascript:void(0)" ng-click="goto(menu.path)">
+                        <span class="sidebar-title" style="font-size: 15px">
+                            {{menu.text}}
+                        </span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <!-- End: Sidebar Left Content -->
+    </aside>
+    <!-- End: Sidebar Left -->
+    <!-- Start: Content-Wrapper -->
+    <section id="content_wrapper">
+        <!-- Begin: Content -->
+        <section id="content" class="table-layout animated fadeIn">
+            <!-- begin: .tray-center -->
+            <div class="tray tray-center">
+                <div ng-view></div>
+            </div>
+            <!-- end: .tray-center -->
+        </section>
+        <!-- End: Content -->
+        <!-- Begin: Page Footer -->
+        <footer id="content-footer" class="affix">
+            <div class="row">
+                <div class="col-md-6">
+                    <span class="footer-legal">© 2016 Framework ETrace Team</span>
+                </div>
+                <div class="col-md-6 text-right">
+                    <a href="#content" class="footer-return-top">
+                        <span class="fa fa-arrow-up"></span>
+                    </a>
+                </div>
+            </div>
+        </footer>
+        <!-- End: Page Footer -->
+
+    </section>
+    <!-- End: Content-Wrapper -->
+</div>
+<!-- End: Main -->
+
+<!-- jQuery -->
+<script src="../resources/lib/jquery-1.11.1.min.js"></script>
+<script src="../resources/lib/jquery-ui.min.js"></script>
+<script src="../resources/lib/jquery.magnific-popup.js"></script>
+<!-- HighCharts Plugin -->
+<!--<script src="resources/script/ext/highstock-all.js"></script>-->
+
+<!-- Theme Javascript -->
+<script src="../resources/lib/utility.js"></script>
+<script src="../resources/lib/demo.js"></script>
+<script src="../resources/lib/main.js"></script>
+
+<!-- Widget Javascript -->
+<script src="../resources/lib/widgets.js"></script>
+<script type="text/javascript">
+    jQuery(document).ready(function () {
+        "use strict";
+        // Init Demo JS
+        Demo.init();
+        // Init Theme Core
+        Core.init();
+    });
+
+</script>
+<script src="../resources/lib/angular/angular.min.js"></script>
+<script src="../resources/lib/angular/angular-route.min.js"></script>
+<!--<script src="resources/lib/ace/ace.js"></script>-->
+<!--<script src="resources/lib/ace/angular-ace.js"></script>-->
+<!--<script src="resources/lib/moment.min.js"></script>-->
+<!--<script src="resources/lib/i18n.js"></script>-->
+<!--<script src="resources/lib/qunee-min.js"></script>-->
+<!--<script src="resources/lib/common.js"></script>-->
+<!--<script src="resources/lib/sweetalert2.min.js"></script>-->
+<!--<script src="resources/lib/angular.treeview.js"></script>-->
+
+<script src="../resources/script/util/map-util.js"></script>
+<script src="../resources/script/config.js"></script>
+<script src="../resources/script/shaka.js"></script>
+
+<script src="../resources/script/util/util.js"></script>
+
+<!--<script src="resources/script/filter/filter.js"></script>-->
+<!--<script src="resources/script/myproject.service/url-myproject.service.js"></script>-->
+<script src="../resources/script/service/data-load-service.js"></script>
+<!--<script src="resources/script/myproject.service/data-fetch-myproject.service.js"></script>-->
+<!--<script src="resources/script/directive/chart-directive.js"></script>-->
+<!--<script src="resources/script/directive/metrics-directive.js"></script>-->
+<!--<script src="resources/script/directive/popup-directive.js"></script>-->
+<!--<script src="resources/script/myproject.controller/period-myproject.controller.js"></script>-->
+`
+
+<!--<script src="resources/script/myproject.controller/init-myproject.controller.js"></script>-->
+<script src="../resources/script/controller/main-controller.js"></script>
+<script src="../resources/script/controller/cluster-controller.js"></script>
+<!--<script src="resources/script/myproject.controller/pipeline_edit-myproject.controller.js"></script>-->
+<!--<script src="resources/script/myproject.controller/pipeline_version-myproject.controller.js"></script>-->
+<!--<script src="resources/script/myproject.controller/pipeline-myproject.controller.js"></script>-->
+<!--<script src="resources/script/myproject.controller/monitor-myproject.controller.js"></script>-->
+<!--<script src="resources/script/myproject.controller/container-myproject.controller.js"></script>-->
+<!--<script src="resources/script/myproject.controller/log-myproject.controller.js"></script>-->
+<!--<script src="resources/script/myproject.controller/event-myproject.controller.js"></script>-->
+<!--<script src="resources/script/myproject.controller/policy-myproject.controller.js"></script>-->
+
+<!--<script src="resources/script/myproject.controller/metrics-myproject.controller.js"></script>-->
+
+<!--<script src="resources/script/myproject.controller/policy_in_container-myproject.controller.js"></script>-->
+<!--<script src="resources/script/myproject.controller/event_monitor-myproject.controller.js"></script>-->
+
+<!-- END: PAGE SCRIPTS -->
+</body>
+</html>
