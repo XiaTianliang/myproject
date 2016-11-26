@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="myproject.mapper.commodity.SupplierMapper">
+    <insert id="create" useGeneratedKeys="true" keyProperty="f_id">
+        INSERT INTO t_supplier(f_name, f_city_id, f_phone_number, f_email) VALUES (#{name}, #{cityId},
+        #{phoneNumber}, #{email});
+    </insert>
+
+    <update id="update" parameterType="Supplier">
+        UPDATE t_supplier SET f_name=#{name}, f_city_id=#{cityId}, f_phone_number=#{phoneNumber},
+         f_email=#{email} WHERE f_id=#{id}
+    </update>
+
+    <delete id="delete">
+        DELETE FROM t_supplier WHERE f_id = #{id};
+    </delete>
+
+    <sql id="select">
+        SELECT A.f_id as id, A.f_name as name, A.f_city_id as cityId, A.f_phone_number as phoneNumber,
+         A.f_email as email, CONCAT_WS(':',D.f_name,C.f_name,B.f_name) as address from t_supplier A, t_city B, t_state C, t_country D WHERE
+         A.f_city_id=B.f_id and B.f_state_id=C.f_id and C.f_country_id=D.f_id
+    </sql>
+
+    <select id="getAll" resultType="Supplier">
+        <include refid="select"/>
+    </select>
+
+    <select id="get" resultType="Supplier">
+        <include refid="select"/>
+        and A.f_id=#{id}
+    </select>
+
+</mapper>

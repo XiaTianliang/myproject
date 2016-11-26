@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="myproject.mapper.commodity.CenterDeliveryOrderMapper">
+    <insert id="create" useGeneratedKeys="true" keyProperty="f_id">
+        INSERT INTO t_center_delivery(f_purchase_id, f_status)
+        VALUES (#{purchaseId}, #{status});
+    </insert>
+
+    <update id="update" parameterType="centerDeliveryOrder">
+        UPDATE t_center_delivery SET f_purchase_id=#{purchaseId},f_status=#{status} WHERE f_id=#{id}
+    </update>
+
+    <delete id="delete">
+        DELETE FROM t_center_delivery WHERE f_id = #{id};
+    </delete>
+
+    <sql id="select">
+        SELECT A.f_id as id, A.f_purchase_id as purchaseId, B.f_name as centerName, C.f_name as commodityName, D.f_name as marketName,
+         E.f_number as number, E.f_price as price,
+         A.f_status as status, A.f_create_time as createTime, A.f_update_time as updateTime
+         from t_center_delivery A,t_market_purchase E,
+          t_distribution_center B, t_commodity C, t_supermarket D WHERE A.f_purchase_id=E.f_id and E.f_commodity_id=C.f_id
+          and E.f_market_id=D.f_id and E.f_center_id=B.f_id
+    </sql>
+
+    <select id="getAll" resultType="CenterDeliveryOrder">
+        <include refid="select"/>
+    </select>
+
+    <select id="get" resultType="CenterDeliveryOrder">
+        <include refid="select"/>
+        and A.f_id=#{id}
+    </select>
+
+</mapper>

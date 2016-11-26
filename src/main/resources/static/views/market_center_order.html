@@ -1,0 +1,206 @@
+<div ng-controller="marketCenterOrderController" ng-init="tab='tab_marketPurchaseOrder'">
+    <div class="panel">
+        <div class="panel-heading">
+              <span class="panel-title">
+                Market <=> Center Order</span>
+        </div>
+
+        <div class="panel-heading">
+            <ul class="nav panel-tabs-border panel-tabs panel-tabs-left">
+                <li ng-class="{true:'active',false:''}[tab=='tab_marketPurchaseOrder']">
+                    <a href="javascript:void(0)" data-toggle="tab" data-target="#tab_marketPurchaseOrder"
+                       ng-click="tab='tab_marketPurchaseOrder'">Market Purchase Order</a>
+                </li>
+                <li ng-class="{true:'active',false:''}[tab=='tab_center_delivery_order']">
+                    <a href="javascript:void(0)" data-toggle="tab" data-target="#tab_center_delivery_order"
+                       ng-click="tab='tab_center_delivery_order'">Center Delivery Order</a>
+                </li>
+            </ul>
+        </div>
+        <div class="panel-body">
+            <div class="tab-content pn br-n">
+                <div id="tab_marketPurchaseOrder" class="tab-pane" ng-class="{true:'active',false:''}[tab=='tab_marketPurchaseOrder']">
+                    <form class="form-inline" role="form" style="padding-bottom: 10px;">
+                        <div class="form-group">
+                            <label class="control-label label-sm">Name:</label>
+                            <input class="form-control input-sm" type="text" ng-model="marketPurchaseOrderSearch.name"/>
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-sm"
+                                ng-click="createMarketPurchaseOrder()">
+                            <i class="fa fa-plus"></i>
+                            New
+                        </button>
+                    </form>
+                    <table class="table table-bordered table-hover">
+                        <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Id</th>
+                            <th>Center Name</th>
+                            <th>Market Name</th>
+                            <th>Commodity Name</th>
+                            <th>Number</th>
+                            <th>Price</th>
+                            <th>Status</th>
+                            <th>Create Time</th>
+                            <th>Update Time</th>
+                            <th>Operation</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr ng-repeat="item in marketPurchaseOrders|filter:marketPurchaseOrderSearch">
+                            <td>{{$index+1}}</td>
+                            <td>{{item.id}}</td>
+                            <td>{{item.centerName}}</td>
+                            <td>{{item.marketName}}</td>
+                            <td>{{item.commodityName}}</td>
+                            <td>{{item.number}}</td>
+                            <td>{{item.price}}</td>
+                            <td>{{item.status}}</td>
+                            <td>{{item.createTime | date:'yyyy-MM-dd HH:mm:ss'}}</td>
+                            <td>{{item.updateTime | date:'yyyy-MM-dd HH:mm:ss'}}</td>
+                            <td>
+                                <button type="button" class="btn btn-xs btn-danger" ng-click="deleteMarketPurchaseOrder(item)"
+                                ng-hide="!item.status=='wait_delivery'">
+                                    <i class="fa fa-remove"></i></button>
+                                <button type="button" class="btn btn-xs btn-info" ng-click="editMarketPurchaseOrder(item)">
+                                    <i class="fa fa-edit"></i></button>
+                                <button type="button" class="btn btn-xs btn-info" ng-click="deliveryByPurchaseOrder(item)"
+                                        ng-hide="item.status!='wait_delivery'">
+                                    <i class="fa fa-car"></i></button>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="tab-content pn br-n">
+                    <div id="tab_center_delivery_order" class="tab-pane" ng-class="{true:'active',false:''}[tab=='tab_center_delivery_order']">
+                        <form class="form-inline" role="form" style="padding-bottom: 10px;">
+                            <!--<div class="form-group">-->
+                            <!--<label class="control-label label-sm">Name:</label>-->
+                            <!--<input class="form-control input-sm" type="text" ng-model="commoditySearch.name"/>-->
+                            <!--</div>-->
+                            <!--<button type="submit" class="btn btn-primary btn-sm"-->
+                            <!--ng-click="createCommodity()">-->
+                            <!--<i class="fa fa-plus"></i>-->
+                            <!--New-->
+                            <!--</button>-->
+                        </form>
+                        <table class="table table-bordered table-hover">
+                            <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Id</th>
+                                <th>Purchase Id</th>
+                                <th>Center Name</th>
+                                <th>Market Name</th>
+                                <th>Commodity Name</th>
+                                <th>Number</th>
+                                <th>Price</th>
+                                <th>Status</th>
+                                <th>Create Time</th>
+                                <th>Update Time</th>
+                                <th>Operation</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr ng-repeat="item in centerDeliveryOrders|filter:centerDeliveryOrderSearch">
+                                <td>{{$index+1}}</td>
+                                <td>{{item.id}}</td>
+                                <td>{{item.purchaseId}}</td>
+                                <td>{{item.centerName}}</td>
+                                <td>{{item.marketName}}</td>
+                                <td>{{item.commodityName}}</td>
+                                <td>{{item.number}}</td>
+                                <td>{{item.price}}</td>
+                                <td>{{item.status}}</td>
+                                <td>{{item.createTime | date:'yyyy-MM-dd HH:mm:ss'}}</td>
+                                <td>{{item.updateTime | date:'yyyy-MM-dd HH:mm:ss'}}</td>
+                                <td>
+                                    <button type="button" class="btn btn-xs btn-info" ng-click="receiveCenterDeliveryOrder(item)"
+                                            ng-hide="item.status!='delivering'">
+                                        <i class="fa fa-car"></i></button>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+        <!--create or edit the marketPurchaseOrder-->
+        <div id="marketPurchaseOrderModal" class="popup-basic mfp-hide admin-form">
+            <div class="panel">
+                <div class="panel-heading">
+              <span class="panel-title">
+                  marketPurchaseOrder Config
+              </span>
+                </div>
+                <div class="panel-body">
+                    <form class="form-horizontal" role="form">
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">Center Id</label>
+                            <div class="col-sm-9">
+                                <input class="form-control input-sm" type="text" ng-model="marketPurchaseOrder.centerId">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">Commodity Id</label>
+                            <div class="col-sm-9">
+                                <input class="form-control input-sm" type="text" ng-model="marketPurchaseOrder.commodityId">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">Market Id</label>
+                            <div class="col-sm-9">
+                                <input class="form-control input-sm" type="text" ng-model="marketPurchaseOrder.marketId">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">Number</label>
+                            <div class="col-sm-9">
+                                <input class="form-control input-sm" type="text" ng-model="marketPurchaseOrder.number">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">Price</label>
+                            <div class="col-sm-9">
+                                <input class="form-control input-sm" type="text" ng-model="marketPurchaseOrder.price">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">Status</label>
+                            <div class="col-sm-9">
+                                <div class="btn-group">
+                                    <button type="button" class="btn btn-sm btn-default dropdown-toggle"
+                                            data-toggle="dropdown" style="background-color: #FEFEFE">
+                                        {{marketPurchaseOrder.status}}
+                                        <span class="caret ml5"></span>
+                                    </button>
+                                    <ul class="dropdown-menu" role="menu">
+                                        <li ng-repeat="status in purchaseOrderStatus"
+                                            ng-click="selectConfigType(marketPurchaseOrder,'status',status)">
+                                            <a href="javascript:void(0)">
+                                                {{status}}
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="panel-footer text-right">
+                    <button type="button" class="btn btn-sm btn-info" ng-click="saveMarketPurchaseOrder(marketPurchaseOrder)"
+                            ng-disabled="!marketPurchaseOrder.centerId || !marketPurchaseOrder.commodityId
+                             || !marketPurchaseOrder.marketId || !marketPurchaseOrder.number  || !marketPurchaseOrder.price || !marketPurchaseOrder.status">
+                        <span class="fa fa-save pr3"></span>Save</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="myproject.mapper.commodity.SupermarketMapper">
+    <insert id="create" useGeneratedKeys="true" keyProperty="f_id">
+        INSERT INTO t_supermarket(f_name, f_city_id, f_center_id) VALUES (#{name}, #{cityId},
+        #{centerId});
+    </insert>
+
+    <update id="update" parameterType="Supermarket">
+        UPDATE t_supermarket SET f_name=#{name}, f_city_id=#{cityId}, f_center_id=#{centerId} WHERE f_id=#{id}
+    </update>
+
+    <delete id="delete">
+        DELETE FROM t_supermarket WHERE f_id = #{id};
+    </delete>
+
+    <sql id="select">
+        SELECT A.f_id as id, A.f_name as name, A.f_city_id as cityId, A.f_center_id as centerId,
+         CONCAT_WS(':',D.f_name,C.f_name,B.f_name) as address from t_supermarket A, t_city B, t_state C, t_country D WHERE
+         A.f_city_id=B.f_id and B.f_state_id=C.f_id and C.f_country_id=D.f_id
+    </sql>
+
+    <select id="getAll" resultType="Supermarket">
+        <include refid="select"/>
+    </select>
+
+    <select id="get" resultType="Supermarket">
+        <include refid="select"/>
+        and A.f_id=#{id}
+    </select>
+
+</mapper>

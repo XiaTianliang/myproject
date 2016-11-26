@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="myproject.mapper.commodity.CenterInventoryMapper">
+    <insert id="create" useGeneratedKeys="true" keyProperty="f_id">
+        INSERT INTO t_center_inventory(f_center_id, f_commodity_id, f_number) VALUES (#{centerId}, #{commodityId},
+        #{number});
+    </insert>
+
+    <update id="update" parameterType="CenterInventory">
+        UPDATE t_center_inventory SET f_center_id=#{centerId}, f_commodity_id=#{commodityId}, f_number=#{number} WHERE f_id=#{id}
+    </update>
+
+    <sql id="select">
+        SELECT A.f_id as id, A.f_center_id as centerId, A.f_commodity_id as commodityId,
+        B.f_name as commodityName, A.f_number as number from t_center_inventory A, t_commodity B
+        WHERE A.f_commodity_id=B.f_id
+    </sql>
+
+    <select id="getAll" resultType="CenterInventory">
+        <include refid="select"/>
+    </select>
+
+    <select id="get" resultType="CenterInventory">
+        <include refid="select"/>
+        and A.f_id=#{id}
+    </select>
+
+    <select id="getByCenterIdAndCommodityId" resultType="CenterInventory">
+        <include refid="select"/>
+        and A.f_center_id=#{centerId} and A.f_commodity_id=#{commodityId}
+    </select>
+
+</mapper>

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="myproject.mapper.commodity.CommodityMapper">
+    <insert id="create" useGeneratedKeys="true" keyProperty="f_id">
+        INSERT INTO t_commodity(f_name, f_code, f_supplier_id) VALUES (#{name}, #{code},
+        #{supplierId});
+    </insert>
+
+    <update id="update" parameterType="Commodity">
+        UPDATE t_commodity SET f_name=#{name}, f_code=#{code}, f_supplier_id=#{supplierId} WHERE f_id=#{id}
+    </update>
+
+    <delete id="delete">
+        DELETE FROM t_commodity WHERE f_id = #{id};
+    </delete>
+
+    <sql id="select">
+        SELECT f_id as id, f_name as name, f_code as code, f_supplier_id as supplierId from t_commodity
+    </sql>
+
+    <select id="getAll" resultType="Commodity">
+        <include refid="select"/>
+    </select>
+
+    <select id="get" resultType="Commodity">
+        <include refid="select"/>
+        and f_id=#{id}
+    </select>
+
+</mapper>

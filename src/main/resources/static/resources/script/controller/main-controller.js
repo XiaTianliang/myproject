@@ -1,9 +1,4 @@
-/**
- * Created by dongzekun.
- * Date: 16/9/21
- * Time: 19:41
- */
-shaka.controller("LeftMenuController", function ($scope, $location) {
+marketPro.controller("LeftMenuController", function ($scope, $location) {
     $scope.$on(
         "$routeChangeSuccess",
         function () {

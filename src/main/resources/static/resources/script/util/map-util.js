@@ -1,7 +1,3 @@
-/**
- * Created by lishuaiwei on 15/12/25.
- */
-
 function Map() {
     this.elements = new Array();
 

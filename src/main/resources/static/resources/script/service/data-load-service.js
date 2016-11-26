@@ -1,12 +1,7 @@
-/**
- * Created by huang_jie on 3/3/15.
- */
 angular.module("DataLoad", [])
     .factory("DataLoadService", ['$http', '$q',
         function ($http, $q) {
             return {
-
-
                 get: function (url) {
                     return $http({
                         method: 'GET', url: REST_API + url,

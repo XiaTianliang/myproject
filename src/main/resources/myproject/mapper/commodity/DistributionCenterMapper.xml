@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="myproject.mapper.commodity.DistributionCenterMapper">
+    <insert id="create" useGeneratedKeys="true" keyProperty="f_id">
+        INSERT INTO t_distribution_center(f_name, f_city_id) VALUES (#{name}, #{cityId});
+    </insert>
+
+    <update id="update" parameterType="DistributionCenter">
+        UPDATE t_distribution_center SET f_name=#{name}, f_city_id=#{cityId} WHERE f_id=#{id}
+    </update>
+
+    <delete id="delete">
+        DELETE FROM t_distribution_center WHERE f_id = #{id};
+    </delete>
+
+    <sql id="select">
+        SELECT A.f_id as id, A.f_name as name, A.f_city_id as cityId, CONCAT_WS(':',D.f_name,C.f_name,B.f_name) as address
+        from t_distribution_center A, t_city B, t_state C, t_country D WHERE
+         A.f_city_id=B.f_id and B.f_state_id=C.f_id and C.f_country_id=D.f_id
+    </sql>
+
+    <select id="getAll" resultType="DistributionCenter">
+        <include refid="select"/>
+    </select>
+
+    <select id="get" resultType="DistributionCenter">
+        <include refid="select"/>
+        and A.f_id=#{id}
+    </select>
+
+</mapper>

@@ -1,7 +1,4 @@
-/**
- * Created by xiatianliang on 16/8/8.
- */
-shaka.controller("clusterController", function ($scope, $q, DataLoadService) {
+marketPro.controller("clusterController", function ($scope, $q, DataLoadService) {
     $scope.createCluster = function () {
         popupOpen("#clusterModal",
             function () {

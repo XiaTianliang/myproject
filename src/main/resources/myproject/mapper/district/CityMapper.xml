@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="myproject.mapper.district.CityMapper">
+    <insert id="create" useGeneratedKeys="true" keyProperty="f_id">
+        INSERT INTO t_city(f_name, f_state_id) VALUES (#{name}, #{stateId});
+    </insert>
+
+    <update id="update" parameterType="City">
+        UPDATE t_city SET f_name=#{name}, f_state_id=#{stateId} WHERE f_id=#{id}
+    </update>
+
+    <delete id="delete">
+        DELETE FROM t_city WHERE f_id = #{id};
+    </delete>
+
+    <sql id="select">
+        SELECT A.f_id as id, A.f_name as name, A.f_state_id as stateId, B.f_name as stateName,
+         C.f_name as countryName from t_city A, t_state B, t_country C WHERE A.f_state_id=B.f_id
+         and B.f_country_id=C.f_id
+    </sql>
+
+    <select id="getAll" resultType="City">
+        <include refid="select"/>
+    </select>
+
+    <select id="get" resultType="City">
+        <include refid="select"/>
+        and A.f_id=#{id}
+    </select>
+
+    <select id="getByStateId" resultType="City">
+        <include refid="select"/>
+        and B.f_id=#{id}
+    </select>
+</mapper>
