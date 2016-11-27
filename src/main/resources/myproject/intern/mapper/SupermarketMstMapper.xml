@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="myproject.intern.mapper.SupermarketMstMapper">
+    <insert id="create" useGeneratedKeys="true" keyProperty="supermarket_id">
+        INSERT INTO supermarket(address, tel)
+        VALUES (#{address}, #{tel});
+    </insert>
+
+    <update id="update" parameterType="supermarketMstDTO">
+        UPDATE supermarket SET address=#{address}, tel=#{tel} WHERE supermarket_id=#{supermarketId}
+    </update>
+
+    <delete id="delete">
+        DELETE FROM supermarket WHERE supermarket_id = #{supermarketId};
+    </delete>
+
+    <sql id="select">
+        SELECT supermarket_id as supermarketId, address, tel  from supermarket
+    </sql>
+
+    <select id="getAll" resultType="supermarketMstDTO">
+        <include refid="select"/>
+    </select>
+
+    <select id="get" resultType="supermarketMstDTO">
+        <include refid="select"/>
+        where supermarket_id=#{supermarketId}
+    </select>
+    
+</mapper>

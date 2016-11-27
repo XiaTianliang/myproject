@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="myproject.intern.mapper.StaffMapper">
+    <insert id="create" useGeneratedKeys="true" keyProperty="staff_id">
+        INSERT INTO staff(name, gender, rank, position, supermarket_id) VALUES (#{name},#{gender},
+        #{rank},#{position},#{supermarketId});
+    </insert>
+
+    <update id="update" parameterType="StaffDTO">
+        UPDATE staff SET f_name=#{name}, gender=#{gender}, rank=#{rank}, position=#{position},
+         supermarket_id=#{supermarketId} WHERE staff_id=#{staffId}
+    </update>
+
+    <delete id="delete">
+        DELETE FROM staff WHERE staff_id = #{staffId};
+    </delete>
+
+    <sql id="select">
+        SELECT staff_id as staffId, name as name, gender, rank, position, supermarket_id as supermarketId from staff
+    </sql>
+
+    <select id="getAll" resultType="StaffDTO">
+        <include refid="select"/>
+    </select>
+
+    <select id="get" resultType="StaffDTO">
+        <include refid="select"/>
+        where staff_id=#{staffId}
+    </select>
+    
+</mapper>

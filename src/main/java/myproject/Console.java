@@ -14,7 +14,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 @EnableTransactionManagement
 @SpringBootApplication
-@MapperScan("myproject.mapper")
+@MapperScan("myproject")
 public class Console implements CommandLineRunner {
 
     public static void main(String[] args) {
@@ -24,5 +24,8 @@ public class Console implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
         //nothing do
+        //noly to load the da
+
+
     }
 }

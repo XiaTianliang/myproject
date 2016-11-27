@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="myproject.intern.mapper.ProductMapper">
+    <insert id="create" useGeneratedKeys="true" keyProperty="product_id">
+        INSERT INTO product(product_type, product_name, price, sales_price, price_unit)
+        VALUES (#{productType},#{productName},#{price},#{salesPrice},#{priceUnit});
+    </insert>
+
+    <update id="update" parameterType="ProductMstDTO">
+        UPDATE product SET product_type=#{productType}, product_name=#{productName}, price=#{price},
+         sales_price=#{salesPrice}, price_unit=#{priceUnit} WHERE product_id=#{productMstId}
+    </update>
+
+    <delete id="delete">
+        DELETE FROM product WHERE product_id = #{productMstId};
+    </delete>
+
+    <sql id="select">
+        SELECT product_id as productMstId, product_type as productType, product_name as productName, price, sales_price as salesPrice  from product
+    </sql>
+
+    <select id="getAll" resultType="ProductMstDTO">
+        <include refid="select"/>
+    </select>
+
+    <select id="get" resultType="ProductMstDTO">
+        <include refid="select"/>
+        where product_id=#{productMstId}
+    </select>
+    
+</mapper>

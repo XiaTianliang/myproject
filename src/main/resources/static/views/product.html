@@ -1,0 +1,134 @@
+<div ng-controller="productController" ng-init="tab='tab_product'">
+    <div class="panel">
+        <div class="panel-heading">
+              <span class="panel-title">
+                Supplier</span>
+        </div>
+
+        <div class="panel-heading">
+            <ul class="nav panel-tabs-border panel-tabs panel-tabs-left">
+                <li ng-class="{true:'active',false:''}[tab=='tab_product']">
+                    <a href="javascript:void(0)" data-toggle="tab" data-target="#tab_product"
+                       ng-click="tab='tab_product'">product</a>
+                </li>
+            </ul>
+        </div>
+        <div class="panel-body">
+
+            <div class="tab-content pn br-n">
+                <div id="tab_product" class="tab-pane" ng-class="{true:'active',false:''}[tab=='tab_product']">
+                    <form class="form-inline" role="form" style="padding-bottom: 10px;">
+                        <div class="form-group">
+                            <label class="control-label label-sm">Name:</label>
+                            <input class="form-control input-sm" type="text" ng-model="productSearch.productName"/>
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-sm"
+                                ng-click="createProduct()">
+                            <i class="fa fa-plus"></i>
+                            New
+                        </button>
+                    </form>
+
+                    <!--private Long productMstId;-->
+                    <!--private String productType;-->
+                    <!--private String productName;-->
+                    <!--private double price;-->
+                    <!--private double salesPrice;-->
+                    <!--private PriceUnitType priceUnit;-->
+
+                    <table class="table table-bordered table-hover">
+                        <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Id</th>
+                            <th>Type</th>
+                            <th>Name</th>
+                            <th>Price</th>
+                            <th>Sales Price</th>
+                            <th>Price Unit</th>
+                            <th>Operation</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr ng-repeat="item in products|filter:productSearch">
+                            <td>{{$index+1}}</td>
+                            <td>{{item.productMstId}}</td>
+                            <td>{{item.productType}}</td>
+                            <td>{{item.productName}}</td>
+                            <td>{{item.price}}</td>
+                            <td>{{item.salesPrice}}</td>
+                            <td>{{item.priceUnit}}</td>
+                            <td>
+                                <button type="button" class="btn btn-xs btn-danger" ng-click="deleteProduct(item)">
+                                    <i class="fa fa-remove"></i></button>
+                                <button type="button" class="btn btn-xs btn-info" ng-click="editProduct(item)">
+                                    <i class="fa fa-edit"></i></button>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!--create or edit the product-->
+        <div id="productModal" class="popup-basic mfp-hide admin-form">
+            <div class="panel">
+                <div class="panel-heading">
+              <span class="panel-title">
+                  Product Config
+              </span>
+                </div>
+                <!--private Long productMstId;-->
+                <!--private String productType;-->
+                <!--private String productName;-->
+                <!--private double price;-->
+                <!--private double salesPrice;-->
+                <!--private PriceUnitType priceUnit;-->
+
+                <div class="panel-body">
+                    <form class="form-horizontal" role="form">
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">Type</label>
+                            <div class="col-sm-9">
+                                <input class="form-control input-sm" type="text" ng-model="product.productType">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">Name</label>
+                            <div class="col-sm-9">
+                                <input class="form-control input-sm" type="text" ng-model="product.productName">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">price</label>
+                            <div class="col-sm-9">
+                                <input class="form-control input-sm" type="text" ng-model="product.price">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">Sales Price</label>
+                            <div class="col-sm-9">
+                                <input class="form-control input-sm" type="text" ng-model="product.salesPrice">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">Price Unit</label>
+                            <div class="col-sm-9">
+                                <input class="form-control input-sm" type="text" ng-model="product.priceUnit">
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="panel-footer text-right">
+                    <button type="button" class="btn btn-sm btn-info" ng-click="saveProduct(product)"
+                            ng-disabled="product.productType || !product.productName || !product.price
+                            || !product.salesPrice || !product.priceUnit">
+                        <span class="fa fa-save pr3"></span>Save</button>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+</div>

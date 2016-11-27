@@ -1,0 +1,132 @@
+<div ng-controller="SalesController" ng-init="tab='tab_sales'">
+    <div class="panel">
+        <div class="panel-heading">
+              <span class="panel-title">
+                Supplier</span>
+        </div>
+
+        <div class="panel-heading">
+            <ul class="nav panel-tabs-border panel-tabs panel-tabs-left">
+                <li ng-class="{true:'active',false:''}[tab=='tab_sales']">
+                    <a href="javascript:void(0)" data-toggle="tab" data-target="#tab_sales"
+                       ng-click="tab='tab_sales'">sales</a>
+                </li>
+            </ul>
+        </div>
+        <div class="panel-body">
+
+            <div class="tab-content pn br-n">
+                <div id="tab_sales" class="tab-pane" ng-class="{true:'active',false:''}[tab=='tab_sales']">
+                    <form class="form-inline" role="form" style="padding-bottom: 10px;">
+                        <div class="form-group">
+                            <label class="control-label label-sm">SupermarketId:</label>
+                            <input class="form-control input-sm" type="text" ng-model="salesSearch.supermarketId"/>
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-sm"
+                                ng-click="createSales()">
+                            <i class="fa fa-plus"></i>
+                            New
+                        </button>
+                    </form>
+
+                    <!--private long orderId;-->
+                    <!--private long supermarketId;-->
+                    <!--private long productId;-->
+                    <!--private String productName;-->
+                    <!--private double price;-->
+                    <!--private double salesPrice;-->
+                    <!--private long number;-->
+                    <!--private Timestamp createTime;-->
+
+                    <table class="table table-bordered table-hover">
+                        <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Id</th>
+                            <th>supermarketId</th>
+                            <th>productId</th>
+                            <th>productName</th>
+                            <th>Price</th>
+                            <th>Sales Price</th>
+                            <th>Number</th>
+                            <th>Time</th>
+                            <th>Operation</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr ng-repeat="item in saleses|filter:salesSearch">
+                            <td>{{$index+1}}</td>
+                            <td>{{item.orderId}}</td>
+                            <td>{{item.supermarketId}}</td>
+                            <td>{{item.productId}}</td>
+                            <td>{{item.productName}}</td>
+                            <td>{{item.price}}</td>
+                            <td>{{item.salesPrice}}</td>
+                            <td>{{item.number}}</td>
+                            <td>{{item.createTime | date:'yyyy-MM-dd HH:mm:ss'}}</td>
+                            <td>
+                                <!--<button type="button" class="btn btn-xs btn-danger" ng-click="deleteProduct(item)">-->
+                                    <!--<i class="fa fa-remove"></i></button>-->
+                                <!--<button type="button" class="btn btn-xs btn-info" ng-click="editProduct(item)">-->
+                                    <!--<i class="fa fa-edit"></i></button>-->
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+
+
+        <!--create or edit the sales-->
+        <div id="salesModal" class="popup-basic mfp-hide admin-form">
+            <div class="panel">
+                <div class="panel-heading">
+              <span class="panel-title">
+                  Sales Config
+              </span>
+                </div>
+
+                <!--private long orderId;-->
+                <!--private long supermarketId;-->
+                <!--private long productId;-->
+                <!--private String productName;-->
+                <!--private double price;-->
+                <!--private double salesPrice;-->
+                <!--private long number;-->
+                <!--private Timestamp createTime;-->
+
+                <div class="panel-body">
+                    <form class="form-horizontal" role="form">
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">supermarketId</label>
+                            <div class="col-sm-9">
+                                <input class="form-control input-sm" type="text" ng-model="sales.supermarketId">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">productId</label>
+                            <div class="col-sm-9">
+                                <input class="form-control input-sm" type="text" ng-model="sales.productId">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">number</label>
+                            <div class="col-sm-9">
+                                <input class="form-control input-sm" type="text" ng-model="sales.number">
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="panel-footer text-right">
+                    <button type="button" class="btn btn-sm btn-info" ng-click="saveSales(sales)"
+                            ng-disabled="!sales.supermarketId || !sales.productId || !sales.number">
+                        <span class="fa fa-save pr3"></span>Save</button>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+</div>

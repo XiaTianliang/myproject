@@ -1,0 +1,199 @@
+<div ng-controller="purchaseInventoryController" ng-init="tab='tab_purchase'">
+    <div class="panel">
+        <div class="panel-heading">
+              <span class="panel-title">
+                Supplier</span>
+        </div>
+
+        <div class="panel-heading">
+            <ul class="nav panel-tabs-border panel-tabs panel-tabs-left">
+                <li ng-class="{true:'active',false:''}[tab=='tab_purchase']">
+                    <a href="javascript:void(0)" data-toggle="tab" data-target="#tab_purchase"
+                       ng-click="tab='tab_purchase'">Purchase</a>
+                </li>
+                <li ng-class="{true:'active',false:''}[tab=='tab_inventory']">
+                    <a href="javascript:void(0)" data-toggle="tab" data-target="#tab_inventory"
+                       ng-click="tab='tab_inventory'">Inventory</a>
+                </li>
+            </ul>
+        </div>
+        <div class="panel-body">
+
+            <div class="tab-content pn br-n">
+                <div id="tab_purchase" class="tab-pane" ng-class="{true:'active',false:''}[tab=='tab_purchase']">
+                    <form class="form-inline" role="form" style="padding-bottom: 10px;">
+                        <div class="form-group">
+                            <label class="control-label label-sm">SupermarketId:</label>
+                            <input class="form-control input-sm" type="text" ng-model="purchaseSearch.supermarketId"/>
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-sm"
+                                ng-click="createPurchase()">
+                            <i class="fa fa-plus"></i>
+                            New
+                        </button>
+                    </form>
+
+                    <!--private long orderId;-->
+                    <!--private long supermarketId;-->
+                    <!--private long productId;-->
+                    <!--private String productName;-->
+                    <!--private double price;-->
+                    <!--private double salesPrice;-->
+                    <!--private long number;-->
+                    <!--private Timestamp createTime;-->
+
+                    <table class="table table-bordered table-hover">
+                        <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Id</th>
+                            <th>supermarketId</th>
+                            <th>productId</th>
+                            <th>productName</th>
+                            <th>Price</th>
+                            <th>Sales Price</th>
+                            <th>Number</th>
+                            <th>Time</th>
+                            <th>Operation</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr ng-repeat="item in purchases|filter:purchaseSearch">
+                            <td>{{$index+1}}</td>
+                            <td>{{item.orderId}}</td>
+                            <td>{{item.supermarketId}}</td>
+                            <td>{{item.productId}}</td>
+                            <td>{{item.productName}}</td>
+                            <td>{{item.price}}</td>
+                            <td>{{item.salesPrice}}</td>
+                            <td>{{item.number}}</td>
+                            <td>{{item.createTime | date:'yyyy-MM-dd HH:mm:ss'}}</td>
+                            <td>
+                                <!--<button type="button" class="btn btn-xs btn-danger" ng-click="deleteProduct(item)">-->
+                                    <!--<i class="fa fa-remove"></i></button>-->
+                                <!--<button type="button" class="btn btn-xs btn-info" ng-click="editProduct(item)">-->
+                                    <!--<i class="fa fa-edit"></i></button>-->
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+
+            <div class="tab-content pn br-n">
+                <div id="tab_inventory" class="tab-pane" ng-class="{true:'active',false:''}[tab=='tab_inventory']">
+                    <form class="form-inline" role="form" style="padding-bottom: 10px;">
+                        <div class="form-group">
+                            <label class="control-label label-sm">Name:</label>
+                            <input class="form-control input-sm" type="text" ng-model="inventorySearch.productName"/>
+                        </div>
+                        <!--<button type="submit" class="btn btn-primary btn-sm"-->
+                                <!--ng-click="createProduct()">-->
+                            <!--<i class="fa fa-plus"></i>-->
+                            <!--New-->
+                        <!--</button>-->
+                    </form>
+
+                    <!--private long inventoryId;-->
+                    <!--private long supermarketId;-->
+                    <!--private long productId;-->
+                    <!--private String productName;-->
+                    <!--private double price;-->
+                    <!--private double salesPrice;-->
+                    <!--private long number;-->
+
+                    <table class="table table-bordered table-hover">
+                        <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Id</th>
+                            <th>Supermarket Id</th>
+                            <th>Product Id</th>
+                            <th>Name</th>
+                            <th>Price</th>
+                            <th>Sales Price</th>
+                            <th>Number</th>
+                            <th>Operation</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr ng-repeat="item in inventories|filter:inventorySearch">
+                            <td>{{$index+1}}</td>
+                            <td>{{item.inventoryId}}</td>
+                            <td>{{item.supermarketId}}</td>
+                            <td>{{item.productId}}</td>
+                            <td>{{item.productName}}</td>
+                            <td>{{item.price}}</td>
+                            <td>{{item.salesPrice}}</td>
+                            <td>{{item.number}}</td>
+                            <td>
+                                <!--<button type="button" class="btn btn-xs btn-danger" ng-click="deleteInventory(item)">-->
+                                    <!--<i class="fa fa-remove"></i></button>-->
+                                <!--<button type="button" class="btn btn-xs btn-info" ng-click="editProduct(item)">-->
+                                    <!--<i class="fa fa-edit"></i></button>-->
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+
+
+
+        </div>
+
+
+
+        <!--create or edit the purchase-->
+        <div id="purchaseModal" class="popup-basic mfp-hide admin-form">
+            <div class="panel">
+                <div class="panel-heading">
+              <span class="panel-title">
+                  Product Config
+              </span>
+                </div>
+
+                <!--private long orderId;-->
+                <!--private long supermarketId;-->
+                <!--private long productId;-->
+                <!--private String productName;-->
+                <!--private double price;-->
+                <!--private double salesPrice;-->
+                <!--private long number;-->
+                <!--private Timestamp createTime;-->
+
+                <div class="panel-body">
+                    <form class="form-horizontal" role="form">
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">supermarketId</label>
+                            <div class="col-sm-9">
+                                <input class="form-control input-sm" type="text" ng-model="purchase.supermarketId">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">productId</label>
+                            <div class="col-sm-9">
+                                <input class="form-control input-sm" type="text" ng-model="purchase.productId">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">number</label>
+                            <div class="col-sm-9">
+                                <input class="form-control input-sm" type="text" ng-model="purchase.number">
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="panel-footer text-right">
+                    <button type="button" class="btn btn-sm btn-info" ng-click="savePurchase(purchase)"
+                            ng-disabled="!purchase.supermarketId || !purchase.productId || !purchase.number">
+                        <span class="fa fa-save pr3"></span>Save</button>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+</div>

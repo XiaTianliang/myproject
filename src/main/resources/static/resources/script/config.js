@@ -4,12 +4,13 @@ var URL_DATE_FORMAT = "YYYY-MM-DD_HH:mm";
 
 var leftMenu =
     [
-        {path: "/cluster", text: "Cluster"},
-        {path: "/event", text: "Event Stream"},
-        {path: "/pipeline", text: "Pipeline"},
-        {path: "/policy", text: "Policy"},
-        {path: "/overall", text: "Overall"},
-        {path: "/monitor", text: "Monitor",keep: ['startTime', 'period', 'pipeline']}
+        {path: "/product", text: "Product"},
+        // {path: "/supermarket", text: "Super Market"},
+        {path: "/purchase_inventory", text: "Purchase & Inventory"},
+        {path: "/sales", text: "Sales"},
+        // {path: "/policy", text: "Policy"},
+        // {path: "/overall", text: "Overall"},
+        // {path: "/monitor", text: "Monitor",keep: ['startTime', 'period', 'pipeline']}
     ];
 var periods = {
     1: 'Last 1 Hour',

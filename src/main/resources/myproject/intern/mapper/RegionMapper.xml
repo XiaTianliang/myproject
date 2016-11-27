@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="myproject.intern.mapper.RegionMapper">
+    <insert id="create" useGeneratedKeys="true" keyProperty="region_id">
+        INSERT INTO region(region_id, name, manager_id) VALUES (#{regionId}, #{name},#{managerId});
+    </insert>
+
+    <update id="update" parameterType="RegionMstDTO">
+        UPDATE region SET f_name=#{name}, manager_id=#{managerId} WHERE region_id=#{regionId}
+    </update>
+
+    <delete id="delete">
+        DELETE FROM region WHERE region_id = #{regionId};
+    </delete>
+
+    <sql id="select">
+        SELECT region_id as regionId, name as name, manager_id as managerId from region
+    </sql>
+
+    <select id="getAll" resultType="RegionMstDTO">
+        <include refid="select"/>
+    </select>
+
+    <select id="get" resultType="RegionMstDTO">
+        <include refid="select"/>
+        where region_id=#{regionId}
+    </select>
+    
+</mapper>
