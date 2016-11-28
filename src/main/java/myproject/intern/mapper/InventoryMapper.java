@@ -21,4 +21,5 @@ public interface InventoryMapper {
     List<Inventory> getBySupermarketId(@Param("supermarketId") long supermarketId);
     Inventory getBySupermarketIdAndProductId(@Param("supermarketId") long supermarketId,
                                              @Param("productId") long productId);
+
 }

@@ -8,6 +8,21 @@ marketPro.controller("purchaseInventoryController", function ($scope, $q, DataLo
             });
     };
 
+    $scope.editSimpleModel = function () {
+        popupOpen("#sampleModelModal",
+            function () {
+                $scope.simpleModel = {};
+            }, function () {
+                $scope.renderPurchase();
+            });
+    };
+
+    $scope.saveSimpleModel = function (purchase) {
+        $q.when(DataLoadService.save("/model/simpleModel", purchase, function () {
+            popupClose();
+        }, swalFailure));
+    };
+
     $scope.savePurchase = function (purchase) {
         $q.when(DataLoadService.save("/purchase", purchase, function () {
             popupClose();
@@ -25,6 +40,8 @@ marketPro.controller("purchaseInventoryController", function ($scope, $q, DataLo
             $scope.inventories = response.data;
         })
     };
+
+
 
     $scope.init = function () {
         $scope.renderPurchase();

@@ -14,7 +14,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 @EnableTransactionManagement
 @SpringBootApplication
-@MapperScan("myproject")
+@MapperScan("myproject.intern")
 public class Console implements CommandLineRunner {
 
     public static void main(String[] args) {

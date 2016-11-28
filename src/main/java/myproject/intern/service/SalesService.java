@@ -65,4 +65,10 @@ public class SalesService {
                                                         Timestamp endTime)throws Exception{
         return salesOrderMapper.getBySupermarketIdAndTimePeriod(supermarketId, startTime, endTime);
     }
+
+    public List<SalesOrder> getBySupermarketIdProductIdAndTimePeriod(long supermarketId, long productId,
+                                                                     Timestamp startTime, Timestamp endTime)throws Exception{
+        return salesOrderMapper.getBySupermarketIdProductIdAndTimePeriod(supermarketId, productId, startTime, endTime);
+    }
+
 }

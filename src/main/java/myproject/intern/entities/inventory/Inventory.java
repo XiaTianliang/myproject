@@ -13,6 +13,7 @@ public class Inventory {
     private double price;
     private double salesPrice;
     private long number;
+    private String modelConfig;
 
     public long getInventoryId() {
         return inventoryId;
@@ -68,5 +69,13 @@ public class Inventory {
 
     public void setNumber(long number) {
         this.number = number;
+    }
+
+    public String getModelConfig() {
+        return modelConfig;
+    }
+
+    public void setModelConfig(String modelConfig) {
+        this.modelConfig = modelConfig;
     }
 }

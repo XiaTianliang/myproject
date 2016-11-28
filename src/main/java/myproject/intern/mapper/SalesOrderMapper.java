@@ -22,4 +22,11 @@ public interface SalesOrderMapper {
     List<SalesOrder> getBySupermarketIdAndTimePeriod(@Param("supermarketId") long supermarketId,
                                                         @Param("startTime") Timestamp startTime,
                                                         @Param("endTime") Timestamp endTime);
+
+    List<SalesOrder> getBySupermarketIdProductIdAndTimePeriod(@Param("supermarketId") long supermarketId,
+                                                              @Param("productId") long productId,
+                                                     @Param("startTime") Timestamp startTime,
+                                                     @Param("endTime") Timestamp endTime);
+
+
 }

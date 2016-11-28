@@ -16,7 +16,8 @@
     </delete>
 
     <sql id="select">
-        SELECT product_id as productMstId, product_type as productType, product_name as productName, price, sales_price as salesPrice  from product
+        SELECT product_id as productMstId, product_type as productType, product_name as productName, price, sales_price as salesPrice,
+          price_unit as priceUnit from product
     </sql>
 
     <select id="getAll" resultType="ProductMstDTO">

@@ -15,10 +15,6 @@ import org.apache.commons.logging.LogFactory;
 import au.com.bytecode.opencsv.CSVReader;
 import au.com.bytecode.opencsv.CSVWriter;
 
-/**
- * Miscellaneous utilities.
- * 
- */
 public final class Utilities {
 
 	private static final Log logger = LogFactory.getLog(Utilities.class);
