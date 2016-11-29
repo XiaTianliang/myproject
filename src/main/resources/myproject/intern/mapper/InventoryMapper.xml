@@ -2,22 +2,22 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="myproject.intern.mapper.InventoryMapper">
     <insert id="create" useGeneratedKeys="true" keyProperty="inventory_id">
-        INSERT INTO inventory(supermarket_id, product_id, number)
-        VALUES (#{supermarketId},#{productId},#{number});
+        INSERT INTO inventory(supermarket_id, product_id, number, model_config, replenishment_model_status)
+        VALUES (#{supermarketId},#{productId},#{number}, #{modelConfig}, #{replenishmentModelStatus});
     </insert>
 
     <update id="update" parameterType="Inventory">
         UPDATE inventory SET supermarket_id=#{supermarketId}, product_id=#{productId},
-        number=#{number} WHERE inventory_id=#{inventoryId}
+        number=#{number}, model_config=#{modelConfig}, replenishment_model_status=#{replenishmentModelStatus}
+         WHERE inventory_id=#{inventoryId}
     </update>
 
-    <!--<delete id="delete">-->
-        <!--DELETE FROM inventory WHERE product_id = #{productId};-->
-    <!--</delete>-->
 
     <sql id="select">
         SELECT A.inventory_id as inventoryId, A.supermarket_id as supermarketId, A.product_id as productId, A.number,
-        B.product_name as productName, B.price, B.sales_price as salesPrice  from inventory A,
+        B.product_name as productName, B.price, B.sales_price as salesPrice, A.model_config as modelConfig,
+          A.replenishment_model_status as replenishmentModelStatus
+          from inventory A,
          product B WHERE A.product_id=B.product_id
     </sql>
 
@@ -39,8 +39,4 @@
         <include refid="select"/>
         and A.supermarket_id=#{supermarketId} and A.product_id=#{productId}
     </select>
-
-
-
-
 </mapper>

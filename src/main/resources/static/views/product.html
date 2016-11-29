@@ -1,11 +1,6 @@
 <div ng-controller="productController" ng-init="tab='tab_product'">
     <div class="panel">
         <div class="panel-heading">
-              <span class="panel-title">
-                Supplier</span>
-        </div>
-
-        <div class="panel-heading">
             <ul class="nav panel-tabs-border panel-tabs panel-tabs-left">
                 <li ng-class="{true:'active',false:''}[tab=='tab_product']">
                     <a href="javascript:void(0)" data-toggle="tab" data-target="#tab_product"
@@ -70,6 +65,9 @@
                 </div>
             </div>
         </div>
+        <div class="panel panel-footer">
+
+        </div>
 
         <!--create or edit the product-->
         <div id="productModal" class="popup-basic mfp-hide admin-form">
@@ -128,7 +126,6 @@
                 </div>
             </div>
         </div>
-
-
     </div>
+
 </div>

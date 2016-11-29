@@ -44,6 +44,9 @@ public class SalesService {
         inventory.setNumber(inventory.getNumber() - salesOrder.getNumber());
         inventoryService.update(inventory);
         salesOrderMapper.create(salesOrder);
+        //replenishment
+        inventoryService.replenishment(inventory.getSupermarketId(), inventory.getProductId());
+
         return salesOrder;
     }
 

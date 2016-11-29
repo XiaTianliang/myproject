@@ -30,6 +30,11 @@ public class InventoryController {
         return ResponseEntity.ok(inventoryService.getAll());
     }
 
+    @RequestMapping(method = RequestMethod.PUT)
+    public void update(@RequestBody Inventory inventory) throws Exception {
+        inventoryService.update(inventory);
+    }
+
 //    @RequestMapping(method = RequestMethod.GET)
 //    public ResponseEntity getBySupermarketId() throws Exception {
 //        return ResponseEntity.ok(inventoryService.getAll());

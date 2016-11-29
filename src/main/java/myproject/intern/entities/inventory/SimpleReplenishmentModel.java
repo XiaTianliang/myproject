@@ -2,12 +2,14 @@ package myproject.intern.entities.inventory;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.context.annotation.Scope;
 
 /**
  * @author tianliangxia
  *         Date:16-11-28
  *         Time:下午2:38
  */
+@Scope(value = "prototype")
 public class SimpleReplenishmentModel extends AbstractReplenishmentModel {
 
     private final static Logger LOGGER = LoggerFactory.getLogger(SimpleReplenishmentModel.class);
@@ -62,8 +64,8 @@ public class SimpleReplenishmentModel extends AbstractReplenishmentModel {
 
     @Override
     public boolean check()throws Exception{
-        boolean res = getCurrentInvntory() - safetyInventory < advanceDays*calculateDailyAverage();
-        LOGGER.debug("check for supermarket id:" + getSupermarketId() + " product id:" + getProductName()
+        boolean res = getCurrentInventory() - safetyInventory < advanceDays*calculateDailyAverage();
+        LOGGER.info("check for supermarket id:" + getSupermarketId() + " product id:" + getProductId()
         + " " + res);
         return res;
     }
@@ -75,10 +77,8 @@ public class SimpleReplenishmentModel extends AbstractReplenishmentModel {
         {
             res = (long)Math.ceil(calculateDailyAverage()*(deliveryPeriod + advanceDays)/batchSize)  * batchSize;
         }
-        LOGGER.debug("check for supermarket id:" + getSupermarketId() + " product id:" + getProductName()
+        LOGGER.info("calculatePurchaseAmount for supermarket id:" + getSupermarketId() + " product id:" + getProductId()
                 + " size " + res);
         return res;
-
     }
-
 }

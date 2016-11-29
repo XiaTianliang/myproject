@@ -1,5 +1,6 @@
 package myproject.intern.util;
 
+
 public class ObjectUtil {
     public static double toDouble(Object obj) {
         if (obj == null) {

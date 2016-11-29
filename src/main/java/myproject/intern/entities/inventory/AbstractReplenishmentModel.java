@@ -3,7 +3,7 @@ package myproject.intern.entities.inventory;
 import myproject.intern.entities.order.SalesOrder;
 import myproject.intern.service.InventoryService;
 import myproject.intern.service.SalesService;
-import org.springframework.beans.factory.annotation.Autowired;
+import myproject.intern.util.SpringContextUtil;
 
 import java.sql.Timestamp;
 import java.util.List;
@@ -16,12 +16,6 @@ import java.util.List;
  */
 abstract public class AbstractReplenishmentModel {
     //define common variables functions
-
-    @Autowired
-    private SalesService salesService;
-
-    @Autowired
-    private InventoryService inventoryService;
 
     private long supermarketId;
     private long productId;
@@ -64,7 +58,7 @@ abstract public class AbstractReplenishmentModel {
     public long getSalesForLastNDays(int n)throws Exception{
         Timestamp end = new Timestamp(System.currentTimeMillis());
         Timestamp beg = new Timestamp(end.getTime() - n*24*3600*1000);
-        List<SalesOrder> orders = salesService.getBySupermarketIdProductIdAndTimePeriod(supermarketId, productId,
+        List<SalesOrder> orders = ((SalesService)SpringContextUtil.getBean("salesService")).getBySupermarketIdProductIdAndTimePeriod(supermarketId, productId,
                 beg, end);
 
         long ret = 0;
@@ -80,7 +74,7 @@ abstract public class AbstractReplenishmentModel {
         Timestamp beg = new Timestamp(cur.getTime() - n*24*3600*1000);
         Timestamp end = new Timestamp(cur.getTime() - m*24*3600*1000);
 
-        List<SalesOrder> orders = salesService.getBySupermarketIdProductIdAndTimePeriod(supermarketId, productId,
+        List<SalesOrder> orders = ((SalesService)SpringContextUtil.getBean("salesService")).getBySupermarketIdProductIdAndTimePeriod(supermarketId, productId,
                 beg, end);
 
         long ret = 0;
@@ -92,8 +86,8 @@ abstract public class AbstractReplenishmentModel {
 
     }
 
-    public long getCurrentInvntory()throws Exception{
-        return inventoryService.getBySupermarketIdAndProductId(supermarketId, productId).getNumber();
+    public long getCurrentInventory()throws Exception{
+        return ((InventoryService)SpringContextUtil.getBean("inventoryService")).getBySupermarketIdAndProductId(supermarketId, productId).getNumber();
     }
 
     public abstract boolean check()throws Exception;

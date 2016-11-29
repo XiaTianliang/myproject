@@ -1,0 +1,263 @@
+<div ng-controller="inventoryController" ng-init="tab='tab_inventory'">
+    <div class="panel">
+        <div class="panel-heading">
+              <span class="panel-title">
+                Inventory</span>
+        </div>
+
+        <div class="panel-heading">
+            <ul class="nav panel-tabs-border panel-tabs panel-tabs-left">
+                <li ng-class="{true:'active',false:''}[tab=='tab_inventory']">
+                    <a href="javascript:void(0)" data-toggle="tab" data-target="#tab_inventory"
+                       ng-click="tab='tab_inventory'">Inventory</a>
+                </li>
+            </ul>
+        </div>
+        <div class="panel-body">
+            <div class="tab-content pn br-n">
+                <div id="tab_inventory" class="tab-pane" ng-class="{true:'active',false:''}[tab=='tab_inventory']">
+                    <form class="form-inline" role="form" style="padding-bottom: 10px;">
+                        <div class="form-group">
+                            <label class="control-label label-sm">Name:</label>
+                            <input class="form-control input-sm" type="text" ng-model="inventorySearch.productName"/>
+                        </div>
+                    </form>
+
+                    <table class="table table-bordered table-hover">
+                        <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Id</th>
+                            <th>Supermarket Id</th>
+                            <th>Product Id</th>
+                            <th>Name</th>
+                            <th>Status</th>
+                            <th>Price</th>
+                            <th>Sales Price</th>
+                            <th>Number</th>
+                            <th>Operation</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr ng-repeat="item in inventories|filter:inventorySearch">
+                            <td>{{$index+1}}</td>
+                            <td>{{item.inventoryId}}</td>
+                            <td>{{item.supermarketId}}</td>
+                            <td>{{item.productId}}</td>
+                            <td>{{item.productName}}</td>
+                            <td>
+                                <div class="bs-component" style="width: 100%">
+                                    <div class="btn-group" style="width: 100%">
+                                        <button type="button" class="btn btn-default btn-sm dropdown-toggle btn-block"
+                                                data-toggle="dropdown"  style="text-align: right; background-color: #FEFEFE">
+                                            {{item.replenishmentModelStatus}}
+                                            <span class="caret ml5"></span>
+                                        </button>
+                                        <ul class="dropdown-menu" role="menu" style="width: 100%">
+                                            <li ng-repeat="status in replenishmentModelStatuses">
+                                                <a ng-click="onReplenishmentModelStatusClick(item,status)">{{status}}</a>
+                                            </li>
+
+                                        </ul>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>{{item.price}}</td>
+                            <td>{{item.salesPrice}}</td>
+                            <td>{{item.number}}</td>
+                            <td>
+                                <button type="button" class="btn btn-xs btn-primary" ng-click="editSimpleModel(item)">
+                                    <i class="fa fa-code"></i></button>
+                                <button type="button" class="btn btn-xs btn-info" ng-click="editCustomerModel(item)">
+                                    <i class="fa fa-edit"></i></button>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="panel panel-footer">
+
+        </div>
+
+
+        <!--create or edit the simpleModelModal-->
+        <div id="simpleModelModal" class="popup-basic mfp-hide admin-form">
+            <div class="panel">
+                <div class="panel-heading">
+              <span class="panel-title">
+                  Simple Model Config
+              </span>
+                </div>
+                <div class="panel-body">
+                    <form class="form-horizontal" role="form">
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">supermarketId</label>
+                            <div class="col-sm-9">
+                                <input class="form-control input-sm" type="text" ng-model="inventory.model.supermarketId">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">productId</label>
+                            <div class="col-sm-9">
+                                <input class="form-control input-sm" type="text" ng-model="inventory.model.productId">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">safetyInventory</label>
+                            <div class="col-sm-9">
+                                <input class="form-control input-sm" type="text" ng-model="inventory.model.safetyInventory">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">deliveryPeriod</label>
+                            <div class="col-sm-9">
+                                <input class="form-control input-sm" type="text" ng-model="inventory.model.deliveryPeriod">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">advanceDays</label>
+                            <div class="col-sm-9">
+                                <input class="form-control input-sm" type="text" ng-model="inventory.model.advanceDays">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">batchSize</label>
+                            <div class="col-sm-9">
+                                <input class="form-control input-sm" type="text" ng-model="inventory.model.batchSize">
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="panel-footer text-right">
+                    <button type="button" class="btn btn-sm btn-info" ng-click="saveInventory(inventory)">
+                        <span class="fa fa-save pr3"></span>Save</button>
+                </div>
+            </div>
+        </div>
+
+
+        <div id="customerModelModal" class="popup-basic popup-xl mfp-hide admin-form">
+            <div class="panel">
+                <div class="panel-heading">
+              <span class="panel-title">
+                 Customer model Config
+              </span>
+                </div>
+                <div class="panel-body">
+                    <!--private ValueType valueType;-->
+                    <!--private String value;-->
+
+
+                    <!--private String functionName;-->
+                    <!--private long supermarketId;-->
+                    <!--private long productId;-->
+
+                    <form class="form-horizontal" role="form">
+                        <div class="form-group">
+                            <!--<label class="col-lg-3 control-label">Name</label>-->
+                            <!--<div class="col-lg-9">-->
+                            <!--<div class="bs-component">-->
+                            <!--<input class="form-control input-sm" type="text"-->
+                            <!--placeholder="Please input event stream name" ng-model="inventory.model.valueName"-->
+                            <!--&gt;-->
+                            <!--</div>-->
+                            <!--</div>-->
+                            <label class="col-lg-3 control-label">checkFormula</label>
+                            <div class="col-lg-9">
+                                <div class="bs-component">
+                                    <input class="form-control input-sm" type="text"
+                                           placeholder="Please input event stream name" ng-model="inventory.model.checkFormula"
+                                    >
+                                </div>
+                            </div>
+                            <label class="col-lg-3 control-label">calculatePurchaseAmountFormula</label>
+                            <div class="col-lg-9">
+                                <div class="bs-component">
+                                    <input class="form-control input-sm" type="text"
+                                           placeholder="Please input event stream name" ng-model="inventory.model.calculatePurchaseAmountFormula"
+                                    >
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                    <div class="panel sort-disable">
+                        <div class="panel-heading panel-heading-small">
+                            <span class="font-12">Value</span>
+                        </div>
+                        <div class="panel-body pn">
+                            <div class="input-group input-group-sm ">
+                            <span class="input-group-addon">
+                              name
+                          </span>
+                                <input class="form-control" type="text" ng-model="fieldName">
+                                <span class="input-group-addon">
+                              valueType
+                          </span>
+                                <input class="form-control" type="text" ng-model="field.valueType">
+                                <span class="input-group-addon">
+                              value
+                          </span>
+                                <input class="form-control" type="text" ng-model="field.value">
+                                <span class="input-group-addon">
+                              functionName
+                          </span>
+                                <input class="form-control" type="text" ng-model="field.functionName">
+                                <span class="input-group-addon">
+                              supermarketId
+                          </span>
+                                <input class="form-control" type="text" ng-model="field.supermarketId">
+                                <span class="input-group-addon">
+                              productId
+                          </span>
+                                <input class="form-control" type="text" ng-model="field.productId">
+                                <span class="input-group-addon cursor" ng-click="addField()">
+                              Add
+                          </span>
+                            </div>
+                            <hr class="short alt">
+                            <table class="table table-striped">
+                                <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>valueType</th>
+                                    <th>value</th>
+                                    <th>functionName</th>
+                                    <th>supermarketId</th>
+                                    <th>productId</th>
+                                    <th>Actions</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr ng-repeat="(key, item) in inventory.model.map">
+                                    <td>{{key}}</td>
+                                    <td>{{item.valueType}}</td>
+                                    <td>{{item.value}}</td>
+                                    <td>{{item.functionName}}</td>
+                                    <td>{{item.supermarketId}}</td>
+                                    <td>{{item.productId}}</td>
+                                    <td>
+                                        <button type="button" class="btn btn-xs btn-danger" ng-click="deleteField(key)"><i
+                                                class="fa fa-remove"></i></button>
+
+                                        <button type="button" class="btn btn-xs btn-info" ng-click="editField(key)"
+                                                style="margin-left: 1px"><i class="fa fa-edit"></i></button>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="panel-footer text-right">
+                    <button type="button" class="btn btn-sm btn-primary" ng-click="saveInventory(inventory)"
+                    >
+                        <i class="fa fa-save"></i>
+                        Save
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -40,31 +40,6 @@
                 <b>MarketPro</b>
             </a>
         </div>
-
-        <!--<ul ng-if="isMetrics" class="nav navbar-nav navbar-right top-btn" ng-myproject.controller="PeriodController">-->
-            <!--<li>-->
-                <!--<div class="navbar-btn btn-group">-->
-                    <!--<a href="javascript:void(0)" class="btn btn-sm" data-toggle="button" ng-click="refreshPeriod()">-->
-                        <!--<span class="fa fa-refresh"></span>-->
-                    <!--</a>-->
-                <!--</div>-->
-            <!--</li>-->
-            <!--<li class="dropdown menu-merge" style="height: 35px" id="periods">-->
-                <!--<a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" style="height: 35px">-->
-                    <!--<span class="hidden-xs"> {{periodDesc}}</span>-->
-                    <!--<span class="caret caret-tp hidden-xs"></span>-->
-                <!--</a>-->
-                <!--<ul class="dropdown-menu list-group dropdown-persist" role="menu">-->
-                    <!--<li class="list-group-item" ng-repeat="item in periods"-->
-                        <!--ng-class="{true:'active',false:''}[item.period==period]"-->
-                        <!--ng-click="selectPeriod(item)">-->
-                        <!--<a href="javascript:void(0)">-->
-                            <!--{{item.desc}}-->
-                        <!--</a>-->
-                    <!--</li>-->
-                <!--</ul>-->
-            <!--</li>-->
-        <!--</ul>-->
     </header>
     <!-- End: Header -->
     <!-- Start: Sidebar -->
@@ -156,10 +131,14 @@
 
 <script src="resources/script/controller/main-controller.js"></script>
 
+<script src="resources/script/controller/status-controller.js"></script>
+
 
 <script src="resources/script/controller/product-controller.js"></script>
-<script src="resources/script/controller/purchase-inventory-controller.js"></script>
+<script src="resources/script/controller/purchase-controller.js"></script>
+<script src="resources/script/controller/inventory-controller.js"></script>
 <script src="resources/script/controller/sales-controller.js"></script>
+
 <!-- END: PAGE SCRIPTS -->
 </body>
 </html>

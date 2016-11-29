@@ -9,10 +9,14 @@ marketPro.config(["$routeProvider",
                 templateUrl: 'views/product.html',
                 reloadOnSearch: false
             }
-        ).when("/purchase_inventory", {
-                    templateUrl: 'views/purchase_inventory.html',
+        ).when("/purchase", {
+                    templateUrl: 'views/purchase.html',
                     reloadOnSearch: false
                 }
+        ).when("/inventory", {
+                templateUrl: 'views/inventory.html',
+                reloadOnSearch: false
+            }
         ).when("/sales", {
                 templateUrl: 'views/sales.html',
                 reloadOnSearch: false

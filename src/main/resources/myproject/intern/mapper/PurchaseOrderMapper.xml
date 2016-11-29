@@ -2,13 +2,13 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="myproject.intern.mapper.PurchaseOrderMapper">
     <insert id="create" useGeneratedKeys="true" keyProperty="order_id">
-        INSERT INTO purchase_order(supermarket_id, product_id, number)
-        VALUES (#{supermarketId},#{productId},#{number});
+        INSERT INTO purchase_order(supermarket_id, product_id, number, replenishment_model_status)
+        VALUES (#{supermarketId},#{productId},#{number},#{replenishmentModelStatus});
     </insert>
 
     <update id="update" parameterType="PurchaseOrder">
         UPDATE purchase_order SET supermarket_id=#{supermarketId}, product_id=#{productId},
-        number=#{number} WHERE order_id=#{orderId}
+        number=#{number}, replenishment_model_status=#{replenishmentModelStatus} WHERE order_id=#{orderId}
     </update>
 
     <!--<delete id="delete">-->
@@ -17,7 +17,9 @@
 
     <sql id="select">
         SELECT A.order_id as orderId, A.supermarket_id as supermarketId, A.product_id as productId, A.number,
-        B.product_name as productName, B.price, B.sales_price as salesPrice, A.create_time as createTime  from purchase_order A,
+        B.product_name as productName, B.price, B.sales_price as salesPrice, A.create_time as createTime,
+        A.replenishment_model_status as replenishmentModelStatus
+          from purchase_order A,
          product B WHERE A.product_id=B.product_id
     </sql>
 

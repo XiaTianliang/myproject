@@ -1,5 +1,7 @@
 package myproject.intern.entities.order;
 
+import myproject.intern.entities.inventory.ReplenishmentModelStatus;
+
 import java.sql.Timestamp;
 
 /**
@@ -16,6 +18,9 @@ public class PurchaseOrder {
     private double salesPrice;
     private long number;
     private Timestamp createTime;
+
+    private ReplenishmentModelStatus replenishmentModelStatus=ReplenishmentModelStatus.NO_MODEL;
+
 
 
     public long getOrderId() {
@@ -80,5 +85,13 @@ public class PurchaseOrder {
 
     public void setCreateTime(Timestamp createTime) {
         this.createTime = createTime;
+    }
+
+    public ReplenishmentModelStatus getReplenishmentModelStatus() {
+        return replenishmentModelStatus;
+    }
+
+    public void setReplenishmentModelStatus(ReplenishmentModelStatus replenishmentModelStatus) {
+        this.replenishmentModelStatus = replenishmentModelStatus;
     }
 }

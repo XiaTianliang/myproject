@@ -1,0 +1,4 @@
+#NOTE: This is an Aether internal implementation file, its format can be changed without prior notice.
+#Mon Nov 28 17:17:55 CST 2016
+@default-nexus-osc-http\://maven.oschina.net/content/groups/public/.lastUpdated=1480324675681
+http\://maven.oschina.net/content/groups/public/.error=Could not transfer artifact org.springframework.boot\:spring-boot-maven-plugin\:pom\:1.4.0.RELEASE from/to nexus-osc (http\://maven.oschina.net/content/groups/public/)\: Connect to maven.oschina.net\:80 [maven.oschina.net/183.78.182.122] failed\: \u8FDE\u63A5\u8D85\u65F6

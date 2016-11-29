@@ -69,7 +69,14 @@ angular.module("DataLoad", [])
                     window.open('/callstack.html#/callstack?uniqueId=' + params.uniqueId + '&timestamp=' + params.timestamp, '_blank');
                 },
                 save: function (url, params, success, failure) {
-                    if (!params['id']) {
+                    //judge first
+                    var already_exits = false;
+                    if(params['productId'] && params['supermarketId']){
+                        already_exits =  (params['orderId'] || params['inventoryId']);
+                    }else{
+                        already_exits = params['productId'];
+                    }
+                    if(!already_exits){
                         $q.when(this.post(url, params)).then(function (response) {
                             if (success) {
                                 success(response);

@@ -14,6 +14,7 @@ public class Inventory {
     private double salesPrice;
     private long number;
     private String modelConfig;
+    private ReplenishmentModelStatus replenishmentModelStatus=ReplenishmentModelStatus.NO_MODEL;
 
     public long getInventoryId() {
         return inventoryId;
@@ -77,5 +78,13 @@ public class Inventory {
 
     public void setModelConfig(String modelConfig) {
         this.modelConfig = modelConfig;
+    }
+
+    public ReplenishmentModelStatus getReplenishmentModelStatus() {
+        return replenishmentModelStatus;
+    }
+
+    public void setReplenishmentModelStatus(ReplenishmentModelStatus replenishmentModelStatus) {
+        this.replenishmentModelStatus = replenishmentModelStatus;
     }
 }
