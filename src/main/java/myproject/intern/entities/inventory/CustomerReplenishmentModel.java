@@ -3,6 +3,8 @@ package myproject.intern.entities.inventory;
 import myproject.intern.entities.inventory.value.Value;
 import org.slf4j.LoggerFactory;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -46,16 +48,81 @@ public class CustomerReplenishmentModel extends AbstractReplenishmentModel{
     //analysis the formular
     //suppose that formular is simple
     //"currentInventory-safetyParameter*salesLastNDays(1)"
+
+
+    private double helphelp(double left, double right, String opts)throws Exception{
+        switch (opts){
+            case "+": return left+right;
+            case "-": return left-right;
+            case "*": return left*right;
+            case "/": return left/right;
+            default:throw new Exception("Unrececogied opeatores");
+        }
+    }
+
+    public double help(List<Double> nums, List<String> operators)throws Exception{
+        if(nums.size() == 1){
+            return nums.get(0);
+        }
+        int idx = -1;
+        for (int i=0;i<operators.size();i++){
+            if (operators.get(i).equals("*") || operators.get(i).equals("/")){
+                idx = i;
+                break;
+            }
+        }
+        if(idx == -1){
+            for(int i=0;i<operators.size();i++){
+                if(operators.get(i).equals("+") || operators.get(i).equals("-")){
+                    idx = i;
+                    break;
+                }
+            }
+        }
+        double tmp = helphelp(nums.get(idx), nums.get(idx+1), operators.get(idx));
+        nums.set(idx, tmp);
+        nums.remove(idx + 1);
+        operators.remove(idx);
+        return help(nums, operators);
+    }
+
+    public String[] findOperators(String str){
+        List<String> operators = new ArrayList<>();
+        for(int i=0;i<str.length();i++){
+            if(str.charAt(i) == '+' || str.charAt(i) == '-' ||
+                    str.charAt(i) == '*' || str.charAt(i) == '/'){
+                operators.add(String.valueOf(str.charAt(i)));
+            }
+        }
+        String[] res = new String[operators.size()];
+        res = operators.toArray(res);
+        return res;
+    }
+
+    private double calculateFormula(String str)throws Exception{
+        LOGGER.info("str before: " + str);
+        str = str.replaceAll("\\s+","");
+        LOGGER.info("str after: " + str);
+        String[]  numStrs= str.split("[+-/*]");
+        //String[]  operators = str.split("[\\w]+");
+        String[]  operators = findOperators(str);
+
+        List<String> operatorList = new ArrayList<>();
+        for (String tmp : operators){
+            LOGGER.info("operator: " + tmp);
+            operatorList.add(tmp);
+        }
+        List<Double> numList = new ArrayList<>();
+        for (String tmp : numStrs){
+            LOGGER.info("num: " + tmp);
+            numList.add(map.get(tmp).getVal());
+        }
+        return help(numList, operatorList);
+    }
+
     @Override
     public  boolean check()throws Exception{
-        String[]  strings= checkFormula.split("[\\s+-/*]");
-        //need improvement
-        for(String str : strings)
-            LOGGER.info(str);
-
-        double res=0;
-        res = map.get(strings[0]).getVal() -
-                map.get(strings[1]).getVal()*map.get(strings[2]).getVal();
+        double res = calculateFormula(checkFormula);
         LOGGER.info("check for supermarket id:" + getSupermarketId() + " product id:" + getProductId()
                 + " " + res);
         return res<0;
@@ -67,12 +134,7 @@ public class CustomerReplenishmentModel extends AbstractReplenishmentModel{
     public  long calculatePurchaseAmount()throws Exception{
         long res = 0;
         if(check()){
-            String[]  strings= calculatePurchaseAmountFormula.split("[\\s+-/*]");
-            //need improvement
-
-            double tmp=0;
-            tmp = map.get(strings[0]).getVal() +
-                    map.get(strings[1]).getVal()*map.get(strings[2]).getVal() - map.get(strings[3]).getVal();
+            double tmp = calculateFormula(calculatePurchaseAmountFormula);
 
             res = (long)Math.ceil(tmp/map.get("batchSize").getVal()) * (long)map.get("batchSize").getVal();
 
